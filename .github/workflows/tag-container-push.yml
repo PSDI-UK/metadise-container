@@ -35,6 +35,9 @@ jobs:
   tag-container-push:
     runs-on: ubuntu-latest
     steps:
+      - name: TESTING
+        run: |
+          [[ -z ${{ secrets.METADISE_SOURCE_PULL_TOKEN }} ]] && echo "variable is empty" || echo "variable is not empty"
       # Checkout the repository including the Metadise source code repo which is a git submodule.
       # The METADISE_SOURCE_PULL_TOKEN is the PAT with read permission required to pull from the
       # Metadise source code repo.
