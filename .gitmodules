@@ -1,0 +1,3 @@
+[submodule "metadise_source"]
+	path = metadise_source
+	url = https://github.com/tomlunderwood/metadise

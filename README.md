@@ -64,3 +64,5 @@ This should be kept in mind when using any container image linked to this
 repository, or any container image built using code in this repository.
 
 
+# Notes for developers
+

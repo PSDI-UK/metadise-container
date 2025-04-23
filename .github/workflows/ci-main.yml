@@ -1,0 +1,14 @@
+name: ci-main
+run-name: ci-main
+on:
+  workflow_dispatch:
+  push:
+#TODO: Uncomment this. This is commented out during testing
+#    branches:
+#      - main
+
+
+jobs:
+
+  tag-container-push:
+    uses: ./.github/workflows/tag-container-push.yml
