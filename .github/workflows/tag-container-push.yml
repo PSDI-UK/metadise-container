@@ -44,10 +44,10 @@ jobs:
       # required to pull from the Metadise source code repo.
       - name: Pull Metadise source code submodule
         run: |
-        # Add the PAT to the URL for the submodule to authorise the pull
-        sed -i "s|https://|https://${METADISE_SOURCE_PULL_TOKEN}@|" .gitmodules
-        # Pull the submodule
-        git submodule update --init
+          # Add the PAT to the URL for the submodule to authorise the pull
+          sed -i "s|https://|https://${METADISE_SOURCE_PULL_TOKEN}@|" .gitmodules
+          # Pull the submodule
+          git submodule update --init
         env:
           METADISE_SOURCE_PULL_TOKEN: ${{ secrets.METADISE_SOURCE_PULL_TOKEN }}
       - name: Bump version and push tag
