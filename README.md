@@ -1,19 +1,18 @@
-# Metadise Container Image
+# Metadise Container Images
 
-This repository houses machinery for building a container image of the
-program *Metadise*, details of which can be found on its [website](https://people.bath.ac.uk/chsscp/teach/metadise.bho/) and in the [scientific paper](https://doi.org/10.1039/FT9969200433)
-describing the program.
+This repository houses machinery for building container images of the program *Metadise*.
+Details regarding Metadise can be found on its [website](https://people.bath.ac.uk/chsscp/teach/metadise.bho/)
+and in the [scientific paper](https://doi.org/10.1039/FT9969200433) describing the program.
 
-The `Dockerfile` here builds a container image housing Metadise. The
-image is intended to be used as a container-image analogue of the
-Metadise executable.
+The `Dockerfile` here builds a container image housing Metadise. The image is intended to
+be used as a container-image analogue of the Metadise executable.
 
 
 ## Obtaining an image
 
-Images can be found in the Packages section of this GitHub project.
-Commands are provided there to pull a specific version to your local
-instance of docker, e.g.
+Images can be found in the [Packages](https://github.com/orgs/PSDI-UK/packages?repo_name=metadise-container)
+section of this GitHub project. Commands are provided there to pull a specific
+version to your local instance of docker, e.g.
 ```
 docker pull ghcr.io/psdi-uk/metadise-container/metadise:v0.0.1
 ```
@@ -65,4 +64,21 @@ repository, or any container image built using code in this repository.
 
 
 # Notes for developers
+
+This repository uses GitHub Actions to implement a CI/CD pipeline which builds, tags
+and publishes container images to the GitHub Container Registry linked to this repo
+every commit to `main`. The `Dockerfile` is first used to build a Docker-format
+container image. This image is in turn used to build a 'sif'-format image (which is
+the image format native to Singularity/Apptainer). Both image formats are published
+in [Packages](https://github.com/orgs/PSDI-UK/packages?repo_name=metadise-container)
+
+In building the Docker container image the Metadise executable is compiled from
+its source code. At the request of the Metdise author, this source code is not
+included in this repository in order to keep the code private. Rather, the Metadise
+source code is housed in an external private repository which is 'included' in this
+repository as a git submodule. This submodule is only 'pulled' into the repo *during* the
+CI/CD pipeline, enabling the Metadise source code to be used on the pipeline's runner
+to build the Metadise Docker container. In order to 'included' the submodule during
+the pipeline, a personal access token (PAT) is required to access the external
+repo housing the Metadise source code. This PAT is a secret for this repository.
 

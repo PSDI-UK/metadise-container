@@ -3,9 +3,8 @@ run-name: ci-main
 on:
   workflow_dispatch:
   push:
-#TODO: Uncomment this. This is commented out during testing
-#    branches:
-#      - main
+    branches:
+      - main
 
 
 jobs:
