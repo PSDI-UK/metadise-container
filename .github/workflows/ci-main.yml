@@ -12,3 +12,4 @@ jobs:
 
   tag-container-push:
     uses: ./.github/workflows/tag-container-push.yml
+    secrets: inherit # pass all secrets to job
