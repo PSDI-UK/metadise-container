@@ -35,6 +35,12 @@ jobs:
   tag-container-push:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if secret exists
+        run: |
+          if [ -z "${{ secrets.METADISE_SOURCE_PULL_TOKEN }}" ]; then
+            echo "MY_PAT is missing!"
+            exit 1
+          fi
       # Checkout the repository including the Metadise source code repo which is a git submodule.
       # The METADISE_SOURCE_PULL_TOKEN is the PAT with read permission required to pull from the
       # Metadise source code repo.
