@@ -35,18 +35,21 @@ jobs:
   tag-container-push:
     runs-on: ubuntu-latest
     steps:
+      # Note that there are two repos in play here: 'PSDI-UK/metadise-container', and 'tomlunderwood/metadise'
+      # which is included as a submodule. Different PATs are required to pull/clone each repo, so we use the
+      # following two-step process. First we checkout 'PSDI-UK/metadise-container', implicitly using the
+      # GITHUB_TOKEN. Then, in a separate step, we pull 'tomlunderwood/metadise' using a PAT which gives
+      # authorisation to do this - see below.
       - name: Checkout repo but not submodule
         uses: actions/checkout@v4
         with:
           submodules: false  # default, just to be explicit
-      # Checkout the Metadise source code repo which is a git submodule.
-      # The METADISE_SOURCE_PULL_TOKEN is the PAT with read permission
-      # required to pull from the Metadise source code repo.
+      # Checkout the Metadise source code repo which is a git submodule. The METADISE_SOURCE_PULL_TOKEN is
+      # the PAT with read permission required to pull from the Metadise source code repo.
       - name: Pull Metadise source code submodule
         run: |
-          # Add the PAT to the URL for the submodule to authorise the pull
+          # Add the PAT to the URL for the submodule in order to authorise the pull
           sed -i "s|https://|https://${METADISE_SOURCE_PULL_TOKEN}@|" .gitmodules
-          # Pull the submodule
           git submodule update --init
         env:
           METADISE_SOURCE_PULL_TOKEN: ${{ secrets.METADISE_SOURCE_PULL_TOKEN }}
