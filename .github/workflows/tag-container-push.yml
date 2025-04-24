@@ -42,11 +42,14 @@ jobs:
       # Checkout the Metadise source code repo which is a git submodule.
       # The METADISE_SOURCE_PULL_TOKEN is the PAT with read permission
       # required to pull from the Metadise source code repo.
-      - name: Checkout submodule
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          token: ${{ secrets.METADISE_SOURCE_PULL_TOKEN }}
+      - name: Pull Metadise source code submodule
+        run: |
+        # Add the PAT to the URL for the submodule to authorise the pull
+        sed -i "s|https://|https://${METADISE_SOURCE_PULL_TOKEN}@|" .gitmodules
+        # Pull the submodule
+        git submodule update --init
+        env:
+          METADISE_SOURCE_PULL_TOKEN: ${{ secrets.METADISE_SOURCE_PULL_TOKEN }}
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
