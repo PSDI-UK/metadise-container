@@ -1,13 +1,11 @@
 # Stage containing Metadise dependencies
-FROM alpine:latest AS base
+FROM alpine:3.21.3 AS base
 
 # Install system dependencies
 RUN apk update
 RUN apk add \
     gfortran \
     musl-dev
-
-
 
 
 # Stage to compile Metadise from source in 'metadise_source' directory on host
@@ -23,16 +21,10 @@ RUN gfortran -c *.f
 RUN gfortran -o metadise *.o
 
 
-
-
 # Stage to create the production image containing only the Metadise executable
 FROM base
 
 WORKDIR /app
-
-RUN apk update
-RUN apk add \
-    musl-dev
 
 # Copy executable from previous stage
 COPY --from=build /app/metadise /app/metadise

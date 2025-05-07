@@ -14,7 +14,7 @@ Images can be found in the [Packages](https://github.com/orgs/PSDI-UK/packages?r
 section of this GitHub project. Commands are provided there to pull a specific
 version to your local instance of docker, e.g.
 ```
-docker pull ghcr.io/psdi-uk/metadise-container/metadise:v0.0.1
+docker pull ghcr.io/psdi-uk/metadise-container/metadise:v0.0.3
 ```
 
 
@@ -23,10 +23,9 @@ docker pull ghcr.io/psdi-uk/metadise-container/metadise:v0.0.1
 It is intended that the image be used similarly to the
 Metadise binary executable. An example command is:
 ```
-docker run -v ${PWD}:/data metadise:v0.0.1
+docker run -v ${PWD}:/data ghcr.io/psdi-uk/metadise-container/metadise:v0.0.3
 ```
-This command assumes that the image is named 'metadise:v0.0.1' and that the
-current directory contains your Metadise input files.
+This command assumes that the current directory contains your Metadise input files.
 Upon instigating this command, the container will
 execute Metadise in the current directory, and Metadise output files
 will be created in the directory. Upon completion of the Metadise
@@ -73,12 +72,12 @@ the image format native to Singularity/Apptainer). Both image formats are publis
 in [Packages](https://github.com/orgs/PSDI-UK/packages?repo_name=metadise-container)
 
 In building the Docker container image the Metadise executable is compiled from
-its source code. At the request of the Metdise author, this source code is not
+its source code. At the request of the Metadise author, this source code is not
 included in this repository in order to keep the code private. Rather, the Metadise
 source code is housed in an external private repository which is 'included' in this
 repository as a git submodule. This submodule is only 'pulled' into the repo *during* the
 CI/CD pipeline, enabling the Metadise source code to be used on the pipeline's runner
-to build the Metadise Docker container. In order to 'included' the submodule during
+to build the Metadise Docker container. In order to be 'included' the submodule during
 the pipeline, a personal access token (PAT) is required to access the external
 repo housing the Metadise source code. This PAT is a secret for this repository.
 
