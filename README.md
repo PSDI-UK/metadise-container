@@ -23,7 +23,7 @@ docker pull ghcr.io/psdi-uk/metadise-container/metadise:v0.0.3
 It is intended that the image be used similarly to the
 Metadise binary executable. An example command is:
 ```
-docker run -v ${PWD}:/data ghcr.io/psdi-uk/metadise-container/metadise:v0.0.3
+docker run --user $(id -u):$(id -g) -v ${PWD}:/data ghcr.io/psdi-uk/metadise-container/metadise:v0.0.3
 ```
 This command assumes that the current directory contains your Metadise input files.
 Upon instigating this command, the container will
@@ -31,6 +31,8 @@ execute Metadise in the current directory, and Metadise output files
 will be created in the directory. Upon completion of the Metadise
 executable the container will terminate.
 
+The purpose of the argument `--user $(id -u):$(id -g)` is to
+use the user and group ID of the user on the host within the container. 
 
 ## Building the image
 
